@@ -1,0 +1,8 @@
+<div class="w-full flex flex-col dashboard-container">
+  <app-assessor-view
+    [assessors]="assessors"
+    [selectedAssessor]="selectedAssessor()"
+    (setAssesor)="setAssesor($event)"
+    (removeAssessor)="unsetAssessor()">
+  </app-assessor-view>
+</div>

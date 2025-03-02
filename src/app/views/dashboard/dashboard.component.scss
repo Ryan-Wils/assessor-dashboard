@@ -1,0 +1,12 @@
+.dashboard-container {
+  position: absolute;
+  top: 0;
+  left: 180px;
+  width: calc(100vw - 180px);
+
+  @media (max-width: 800px) {
+    left: 0;
+    top: 50px;
+    width: 100%;
+  }
+}

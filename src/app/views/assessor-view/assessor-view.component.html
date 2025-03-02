@@ -1,0 +1,122 @@
+<div class="w-full flex flex-col">
+  <div class="w-full flex border-t-2 border-gray-300 border-b-2 h-screen" [class.flex-row]="showContainer" [class.flex-col]="!showContainer">
+    @if (showContainer) {
+      <ul class="w-xs overflow-y-auto">
+        <h4 class="text-[18px] font-bold p-2">Dashboard</h4>
+        <li class="cursor-pointer rounded py-2 px-4 ml-2 mr-2 mt-2 hover:bg-gray-300"
+            (click)="unsetAssessor()"
+            [class.bg-gray-200]="!showAssessorView()">Overview</li>
+
+        <h4 class="text-[18px] font-bold p-2">Assessors</h4>
+        @for (assessor of assessors(); track assessor.assessorId) {
+          <li class="cursor-pointer rounded py-2 px-4 ml-2 mr-2 mt-2 hover:bg-gray-300"
+              (click)="setSelectedAssessor(assessor.assessorId)"
+              [class.bg-gray-200]="selectedAssessor()?.assessorId === assessor.assessorId">
+            {{assessor.assessorName}}
+          </li>
+        }
+      </ul>
+    } @else {
+       <div class="flex align-center justify-center my-[10px]">
+        <select class="w-xs overflow-y-auto rounded-sm border border-gray-300 p-2" (change)="optionSelectChange($event)">
+          <option (click)="unsetAssessor()">Overview</option>
+          <option (click)="unsetAssessor()">--------------------</option>
+          @for (assessor of assessors(); track assessor.assessorId) {
+            <option
+              [value]="assessor.assessorId"
+              (click)="setSelectedAssessor(assessor.assessorId)"
+              [selected]="selectedAssessor()?.assessorId === assessor.assessorId">
+              {{assessor.assessorName}}
+            </option>
+          }
+        </select>
+       </div>
+       <hr class="mb-2" />
+    }
+    @if (showAssessorView()) {
+      <div class="w-full p-[12px] shadow-lg border-gray-300 overflow-y-scroll" [ngClass]="{'max-h-full': !showContainer}">
+        @if (selectedAssessor()?.categoryData?.length) {
+          <app-toolbar [centerToolbar]="!showContainer"></app-toolbar>
+          <hr class="mb-2" />
+          <div class="flex flex-row justify-between items-center" [class.justify-center]="!showContainer">
+            @if (showContainer) {
+              <h3 class="text-[24px] font-bold">{{selectedAssessor()?.assessorName}}</h3>
+            }
+            <div class="flex" [class.ml-auto]="showContainer" [class.mb-3]="!showContainer">
+              <p class="mr-2 text-gray-400">Chart type:</p>
+              <p class="mr-2">Bar</p>
+              <label class="switch">
+                <input type="checkbox" [value]="selectedChartType() === 'bar'" (change)="toggleSelectedChartType()">
+                <span class="slider round"></span>
+              </label>
+              <p class="ml-2">Radar</p>
+            </div>
+          </div>
+          <div class="flex flex-row flex-wrap align-center justify-center">
+            @for (category of selectedAssessor()?.categoryData; track category.categoryName) {
+              <div>
+                <h4 class="text-[16px] font-semibold">{{category.categoryName | titlecase }}</h4>
+
+                <!-- RW: This is wrong but change detection isn't working as intended, will require fixing. -->
+                @if (selectedChartType() === 'bar') {
+                  <app-chart
+                    [chartType]="'bar'"
+                    [chartSections]="category.sections">
+                  </app-chart>
+                } @else {
+                  <app-chart
+                    [chartType]="'radar'"
+                    [chartSections]="category.sections">
+                  </app-chart>
+                }
+              </div>
+            }
+          </div>
+        } @else {
+          <div class="bg-white">
+            <h3 class="text-[24px] font-bold">{{selectedAssessor()?.assessorName}}</h3>
+            <div>
+              <p class="text-[16px]">Candidate is yet to complete their assessment.</p>
+            </div>
+          </div>
+        }
+      </div>
+    } @else if (!showAssessorView()) {
+      <div class="w-full p-[12px] shadow-lg overflow-y-scroll bg-white " [ngClass]="{'max-h-full': !showContainer}">
+        <app-toolbar [centerToolbar]="!showContainer"></app-toolbar>
+        <hr class="mb-4" />
+        <div>
+          <div class="mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl">
+            <div class="p-2 grid grid-cols-2 row-gap-8 md:grid-cols-4 rounded bg-white">
+              <div class="text-center md:border-r hover:bg-gray-100 cursor-pointer">
+                <h6 class="text-3xl font-bold lg:text-3xl xl:text-4xl text-gray-600">16</h6>
+                <p class="text-sm font-medium tracking-widest text-gray-600 uppercase lg:text-base">
+                  Candidates
+                </p>
+              </div>
+              <div class="text-center md:border-r hover:bg-gray-100 cursor-pointer">
+                <h6 class="text-3xl font-bold lg:text-3xl xl:text-4xl text-gray-600">16</h6>
+                <p class="text-sm font-medium tracking-widest text-gray-600 uppercase lg:text-base">
+                  Assessors
+                </p>
+              </div>
+              <div class="text-center md:border-r hover:bg-gray-100 cursor-pointer">
+                <h6 class="text-3xl font-bold lg:text-3xl xl:text-4xl text-gray-600">94</h6>
+                <p class="text-sm font-medium tracking-widest text-gray-600 uppercase lg:text-base">
+                  Pending
+                </p>
+              </div>
+              <div class="text-center hover:bg-gray-100 cursor-pointer">
+                <h6 class="text-3xl font-bold lg:text-3xl xl:text-4xl text-gray-600">11</h6>
+                <p class="text-sm font-medium tracking-widest text-gray-600 uppercase lg:text-base">
+                  Completed
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <app-averages-table [showContainer]="showContainer"></app-averages-table>
+      </div>
+    }
+  </div>
+</div>
