@@ -1,0 +1,39 @@
+<div class="w-full flex flex-col dashboard-container">
+  <div class="w-full flex flex-col">
+    <div class="w-full flex border-t-2 border-gray-300 border-b-2 h-screen" [class.flex-row]="showContainer()"
+      [class.flex-col]="!showContainer()">
+      @if (showContainer()) {
+        <ul class="w-[20%] max-w-[230px] min-w-[200px] overflow-y-auto shadow-lg">
+          <h4 class="text-[18px] font-bold p-2">Dashboard</h4>
+          <li class="cursor-pointer rounded py-2 px-4 ml-2 mr-2 mt-2 hover:bg-gray-300" [routerLink]="['/find/overview']" routerLinkActive="bg-gray-200" >Overview</li>
+
+          <h4 class="text-[18px] font-bold p-2">Assessors</h4>
+          @for (assessor of assessors(); track assessor.assessorId) {
+          <li class="cursor-pointer rounded py-2 px-4 ml-2 mr-2 mb-2 hover:bg-gray-300"
+            [routerLink]="['/find/assessor', assessor.assessorId]"
+            routerLinkActive="bg-gray-200">
+            {{assessor.assessorName}}
+          </li>
+          }
+        </ul>
+      } @else {
+        <div class="flex align-center justify-center my-[10px]">
+          <select class="w-xs overflow-y-auto rounded-sm border border-gray-300 p-2"
+            (change)="optionSelectChange($event)">
+            <option (click)="navigateOverview()">Overview</option>
+            <option>--------------------</option>
+            @for (assessor of assessors(); track assessor.assessorId) {
+            <option [value]="assessor.assessorId"
+              [routerLink]="['/assessor', assessor.assessorId]"
+              [selected]="selectedAssessor()?.assessorId === assessor.assessorId">
+              {{assessor.assessorName}}
+            </option>
+            }
+          </select>
+        </div>
+        <hr class="mb-2" />
+      }
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

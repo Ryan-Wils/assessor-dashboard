@@ -1,0 +1,43 @@
+<div class="w-full p-[12px] border-gray-300 overflow-y-auto" [ngClass]="{'max-h-full': !showContainer()}">
+  @if (selectedAssessor()?.categoryData?.length) {
+  <app-toolbar [centerToolbar]="!showContainer()"></app-toolbar>
+  <hr class="mb-2" />
+  <div class="flex flex-row justify-between items-center bg-white px-4 py-2" [class.justify-center]="!showContainer()">
+    @if (showContainer()) {
+      <h3 class="text-[24px] font-bold">{{selectedAssessor()?.assessorName}}</h3>
+    }
+    <div class="flex" [class.ml-auto]="showContainer()" [class.mb-3]="!showContainer()">
+      <p class="mr-2 text-gray-400">Chart type:</p>
+      <p class="mr-2">Bar</p>
+      <label class="switch">
+        <input type="checkbox" [value]="selectedChartType() === 'bar'" (change)="toggleSelectedChartType()">
+        <span class="slider round bg-white"></span>
+      </label>
+      <p class="ml-2">Radar</p>
+    </div>
+  </div>
+  <div class="flex flex-row flex-wrap align-center justify-center bg-white">
+    @for (category of selectedAssessor()?.categoryData; track trackBy(category)) {
+    <div>
+      <h4 class="text-[16px] font-semibold">{{category.categoryName | titlecase }}</h4>
+
+      <!-- RW: This is wrong but change detection isn't working as intended, will require fixing. -->
+      @if (selectedChartType() === 'bar') {
+      <app-chart [chartType]="'bar'" [chartSections]="category.sections">
+      </app-chart>
+      } @else {
+      <app-chart [chartType]="'radar'" [chartSections]="category.sections">
+      </app-chart>
+      }
+    </div>
+    }
+  </div>
+  } @else {
+  <div class="bg-white">
+    <h3 class="text-[24px] font-bold">{{selectedAssessor()?.assessorName}}</h3>
+    <div>
+      <p class="text-[16px]">Candidate is yet to complete their assessment.</p>
+    </div>
+  </div>
+  }
+</div>

@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { campaignData } from './mock-data';
+import { Observable, of } from 'rxjs';
+import { Assessor, CampaignData, ExerciseAverage } from '../types/assessor-type';
 
 @Injectable({
   providedIn: 'root'
@@ -9,32 +11,16 @@ export class MockDataService {
   constructor() {
   }
 
-  public getExerciseAverages(selectedCampaignId: number = 0) {
-    return campaignData[selectedCampaignId].exerciseAverages.map((exercise) => {
-      return {
-        ...exercise
-      };
-    });
+  public getExerciseAverages(selectedCampaignId: number = 0): Observable<ExerciseAverage[]> {
+    return of(campaignData[selectedCampaignId].exerciseAverages ?? []);
   }
 
-
-  public getCampaigns() {
-    return campaignData.map((campaign) => {
-      return {
-        name: campaign.name,
-        startDate: campaign.startDate,
-        endDate: campaign.endDate,
-        campaignId: campaign.campaignId
-      };
-    });
+  public getCampaigns(): Observable<CampaignData[]> {
+    return of(campaignData ?? []);
   }
 
-  public getAssessorData(selectedCampaignId: number = 0) {
-    return campaignData[selectedCampaignId].assessors.map((assessor) => {
-      return {
-        ...assessor
-      };
-    });
+  public getAssessorData(selectedCampaignId: number = 0): Observable<Assessor[]> {
+    return of(campaignData[selectedCampaignId].assessors ?? []);
   }
 
 }

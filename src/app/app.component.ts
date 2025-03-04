@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from './components/header/header.component';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { HeaderComponent } from './components/side-nav/side-nav.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, DashboardComponent],
+  imports: [HeaderComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'TopScore - Campaign Dashboard';
+  title = 'Campaign Dashboard';
 }
