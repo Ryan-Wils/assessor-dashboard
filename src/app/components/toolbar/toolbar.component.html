@@ -1,15 +1,14 @@
 <div class="flex flex-row flex-wrap justify-between align-center items-center gap-2 mb-4" [class.justify-center]="centerToolbar()">
-  <select class="w-xs max-h-[600px] overflow-y-auto rounded-sm border border-gray-300 p-2">
-    @for (campaign of campaigns; track campaign.campaignId) {
-    <option [value]="campaign.campaignId" (click)="setSelectedAssessor(campaign.campaignId)"
-      [selected]="selectedCampaign().campaignId === campaign.campaignId">
+  <select class="w-xs max-h-[715px] overflow-y-auto rounded-sm border border-gray-300 p-2 bg-white">
+    @for (campaign of campaigns(); track campaign.campaignId) {
+    <option [value]="campaign.campaignId" [selected]="selectedCampaign().campaignId === campaign.campaignId">
       {{campaign.name}}
     </option>
     }
   </select>
 
   <div class="flex flex-row gap-2 flex-wrap">
-    <input class="w-[150px] max-h-[600px] overflow-y-auto rounded-sm border border-gray-300 p-2" type="date" id="start" name="trip-start" value="2025-01-01" min="2025-01-01" max="2025-12-20" />
-    <input class="w-[150px] max-h-[600px] overflow-y-auto rounded-sm border border-gray-300 p-2" type="date" id="start" name="trip-start" value="2025-01-20" min="2025-01-20" max="2025-12-20" />
+    <input class="w-[150px] max-h-[715px] overflow-y-auto rounded-sm border border-gray-300 p-2 bg-white" type="date" id="start" name="trip-start" value="2025-01-01" min="2025-01-01" max="2025-12-20" />
+    <input class="w-[150px] max-h-[715px] overflow-y-auto rounded-sm border border-gray-300 p-2 bg-white" type="date" id="start" name="trip-start" value="2025-01-20" min="2025-01-20" max="2025-12-20" />
   </div>
 </div>

@@ -1,5 +1,7 @@
 .full-nav {
-  background-color: #1a1a1a;;
+  background-color: #1a1a1a;
+  position: fixed;
+
   @media (max-width: 800px) {
     display: none;
   }
@@ -11,6 +13,7 @@
   @media (max-width: 800px) {
     display: flex;
     align-items: center;
+    position: absolute;
   }
 
   .burger-icon {

@@ -1,5 +1,7 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
 import { MockDataService } from '../../services/mock-data.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { CampaignData } from '../../types/assessor-type';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,18 +9,13 @@ import { MockDataService } from '../../services/mock-data.service';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
-  campaigns = inject(MockDataService).getCampaigns();
+  campaigns = toSignal<CampaignData[]>(inject(MockDataService).getCampaigns());
   centerToolbar = input<boolean>(false);
-  selectedCampaign = signal(this.campaigns[0]);
+  selectedCampaign = signal<CampaignData>({} as CampaignData);
 
   constructor() { }
 
   ngOnInit() {
-  }
-
-  public setSelectedAssessor(campaignId: number | null): void {
-    const campaignPos = this.campaigns.findIndex((campaign) => campaign.campaignId === campaignId);
-    this.selectedCampaign.set(this.campaigns[campaignPos]);
   }
 
 }

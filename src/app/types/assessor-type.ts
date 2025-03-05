@@ -10,7 +10,9 @@ export type CampaignData = {
 export type ExerciseAverage = {
   name: string;
   value: number;
-  maxValue: number;
+  color: string;
+  highlightColor: string;
+  id: number;
 }
 
 export type Assessor = {

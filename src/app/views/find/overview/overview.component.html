@@ -1,0 +1,7 @@
+
+<div class="w-full p-[20px] overflow-y-auto" [ngClass]="{'max-h-full': !showContainer()}">
+  <app-toolbar [centerToolbar]="!showContainer()"></app-toolbar>
+  <hr class="mb-4" />
+  <app-overview-stats></app-overview-stats>
+  <app-averages-table [showContainer]="showContainer()" [exerciseAverages]="exerciseAverages()"></app-averages-table>
+</div>
