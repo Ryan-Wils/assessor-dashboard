@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { BreakpointService } from '../../../services/breakpoint.service';
 import { MockDataService } from '../../../services/mock-data.service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { OverviewStatsComponent } from '../../../components/overview-stats/overview-stats.component';
 
 @Component({
   selector: 'app-overview',
-  imports: [AveragesTableComponent, ToolbarComponent, CommonModule],
+  imports: [AveragesTableComponent, ToolbarComponent, OverviewStatsComponent, CommonModule],
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss']
 })

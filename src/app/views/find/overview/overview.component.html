@@ -1,36 +1,7 @@
 
-<div class="w-full p-[12px] overflow-y-auto" [ngClass]="{'max-h-full': !showContainer()}">
+<div class="w-full p-[20px] overflow-y-auto" [ngClass]="{'max-h-full': !showContainer()}">
   <app-toolbar [centerToolbar]="!showContainer()"></app-toolbar>
   <hr class="mb-4" />
-  <div class="px-4 mb-4">
-    <div class="shadow-lg mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl">
-      <div class="p-2 grid grid-cols-2 row-gap-8 md:grid-cols-4 rounded bg-white">
-        <div class="text-center hover:bg-gray-100 cursor-pointer">
-          <h6 class="text-3xl font-bold lg:text-3xl xl:text-4xl text-gray-600">16</h6>
-          <p class="text-sm font-medium tracking-widest text-gray-600 uppercase lg:text-base">
-            Candidates
-          </p>
-        </div>
-        <div class="text-center hover:bg-gray-100 cursor-pointer">
-          <h6 class="text-3xl font-bold lg:text-3xl xl:text-4xl text-gray-600">16</h6>
-          <p class="text-sm font-medium tracking-widest text-gray-600 uppercase lg:text-base">
-            Assessors
-          </p>
-        </div>
-        <div class="text-center hover:bg-gray-100 cursor-pointer">
-          <h6 class="text-3xl font-bold lg:text-3xl xl:text-4xl text-gray-600">94</h6>
-          <p class="text-sm font-medium tracking-widest text-gray-600 uppercase lg:text-base">
-            Pending
-          </p>
-        </div>
-        <div class="text-center hover:bg-gray-100 cursor-pointer">
-          <h6 class="text-3xl font-bold lg:text-3xl xl:text-4xl text-gray-600">11</h6>
-          <p class="text-sm font-medium tracking-widest text-gray-600 uppercase lg:text-base">
-            Completed
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-overview-stats></app-overview-stats>
   <app-averages-table [showContainer]="showContainer()" [exerciseAverages]="exerciseAverages()"></app-averages-table>
 </div>

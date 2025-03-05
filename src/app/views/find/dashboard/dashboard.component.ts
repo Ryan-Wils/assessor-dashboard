@@ -17,8 +17,8 @@ export class DashboardComponent implements OnInit {
   showContainer = inject(BreakpointService).showContainer;
   mockDataSvc = inject(MockDataService);
 
-  selectedAssessor = signal<Assessor | null>(null);
   assessors = toSignal(this.mockDataSvc.getAssessorData());
+  selectedAssessor = signal<Assessor | null>(null);
 
   constructor() {
   }
